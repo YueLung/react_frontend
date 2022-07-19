@@ -1,0 +1,35 @@
+[
+    {
+        "name": "首頁",
+        "link": "home",
+        "icon": ""
+    },
+    {
+        "name": "測試區",
+        "link": "",
+        "icon": "",
+        "children": [
+            {
+                "name": "ApiTest",
+                "link": "apiTest",
+                "icon": "",
+                "children": ""
+            }
+        ]
+    },
+    {
+        "name": "React練習",
+        "link": "react",
+        "icon": ""
+    },
+    {
+        "name": "影像辨識",
+        "link": "cv",
+        "icon": ""
+    },
+    {
+        "name": "AI玩遊戲",
+        "link": "ai",
+        "icon": ""
+    }
+]
