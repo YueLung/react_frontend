@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const ApiTest = () => {
     const [repo, setRepo] = useState();
 
-    fetch('http://127.0.0.1:8000/api_test', {
+    fetch(`${process.env.REACT_APP_END_POINT}/trial/api_test`, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -12,7 +12,7 @@ const ApiTest = () => {
         .then(res => res.json())
         .then(data => {
             console.log(data);
-            setRepo(data['invalid']);
+            setRepo(data['data']);
             /*接到request data後要做的事情*/
         })
         .catch(e => {
