@@ -6,7 +6,8 @@ const ApiTest = () => {
     fetch(`${process.env.REACT_APP_END_POINT}/trial/api_test`, {
         method: "GET",
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         },
     })
         .then(res => res.json())
