@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
 import 'antd/dist/antd.css';
 import './App.css';
@@ -7,10 +8,12 @@ import {
   AppstoreOutlined
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
-import React, { useState } from 'react';
 import menu from './assets/menu.json';
-import Home from './pages/Home';
-import ApiTest from './pages/ApiTest';
+import HomePage from './pages/home/HomePage';
+import ApiTestPage from './pages/apiTest/ApiTestPage';
+import ManagePage from "pages/shopping/manage/ManagePage";
+import CartPage from "pages/shopping/cart/CartPage";
+
 const { Header, Sider, Content } = Layout;
 
 function getItem(key, name, link, icon, children) {
@@ -34,8 +37,8 @@ const App = () => {
 
   return (
     <>
-      <Layout style={{ height: '100%' }}>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Layout hasSider style={{ minHeight: '100vh' }}>
+        <Sider collapsible collapsed={collapsed}  >
           <div className="logo" />
           <Menu
             theme="dark"
@@ -60,15 +63,19 @@ const App = () => {
             className="site-layout-background"
             style={{
               margin: '24px 16px',
+              overflow: 'initial',
               padding: 24,
-              minHeight: 280,
+              // minHeight: 36
             }}
           >
-            <Routes>
-              <Route path="home" element={<Home />} />
-              <Route path="apiTest" element={<ApiTest />} />
-            </Routes>
-
+            <div>
+              <Routes>
+                <Route path="home" element={<HomePage />} />
+                <Route path="apiTest" element={<ApiTestPage />} />
+                <Route path="shopping/manage" element={<ManagePage />} />
+                <Route path="shopping/cart" element={<CartPage />} />
+              </Routes>
+            </div>
           </Content>
         </Layout>
       </Layout>
