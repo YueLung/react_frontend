@@ -19,7 +19,7 @@ const { Header, Sider, Content } = Layout;
 function getItem(key, name, link, icon, children) {
   return {
     key,
-    label: (<Link to={link}>{name}</Link>),
+    label: link ? (<Link to={link}>{name}</Link>) : name,
     icon: String(key).includes('-') ? null : <AppstoreOutlined />,
     children: children ? children.map((child, index) => {
       return getItem(`${key}-${index}`, child.name, child.link, child.icon, child.children);

@@ -1,33 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Divider, Row, Button, Spin, Card, Table } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Col, Row, Button, Spin, Card, Table } from 'antd';
+import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import AddCategoryDialogue from './components/AddCategoryDialogue';
 import AddProductDialogue from './components/AddProductDialogue';
+import ModifyCategoryDialogue from './components/ModifyCategoryDialogue';
 
-const columns = [
-  {
-    title: '名字',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: '價格',
-    dataIndex: 'price',
-    key: 'price',
-  },
-  {
-    title: '圖片',
-    dataIndex: 'photo',
-    key: 'photo',
-  },
-];
 
 const ManagePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [productCategoryInfos, setProductCategoryInfos] = useState(null);
   const [addCategoryModalVisible, setAddCategoryModalVisible] = useState(false);
   const [addProductModalVisible, setAddProductModalVisible] = useState(false);
-  const [clickedCategory, setclickedCategory] = useState(null);
+  const [clickedCategory, setClickedCategory] = useState(null);
+  const [modifyProductModalVisible, setModifyProductModalVisible] = useState(false);
+  const [clickedProduct, setClickedProduct] = useState(null);
+
+  const columns = [
+    {
+      title: '名字',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: '價格',
+      dataIndex: 'price',
+      key: 'price',
+    },
+    {
+      title: '圖片',
+      dataIndex: 'photo',
+      key: 'photo',
+    },
+    {
+      title: '編輯',
+      render: (_, product) => (
+        <Button type="primary" icon={<EditOutlined />} size="small"
+          onClick={() => {
+            console.log(product)
+            setClickedProduct(product);
+            setModifyProductModalVisible(true);
+          }}>
+        </Button>
+      ),
+    }
+  ];
 
   useEffect(() => {
     getData();
@@ -61,17 +77,17 @@ const ManagePage = () => {
           {(productCategoryInfos !== null) &&
             productCategoryInfos.map((productCategoryInfo) =>
               <Col xs={24} lg={12}>
-                <Card
-                  title={productCategoryInfo.name}
-                  extra={<Button onClick={() => {
-                    setclickedCategory(productCategoryInfo.id)
-                    setAddProductModalVisible(true)
-                  }} type="primary" size='small' icon={<PlusOutlined />} >
+                <Card title={productCategoryInfo.name}
+                  extra={<Button type="primary" size="small" icon={<PlusOutlined />}
+                    onClick={() => {
+                      setClickedCategory(productCategoryInfo.id)
+                      setAddProductModalVisible(true)
+                    }}
+                  >
                     新增商品
                   </Button>}
                 >
                   <Table dataSource={productCategoryInfo.products} columns={columns} size="small">
-
                   </Table>
                 </Card>
               </Col>
@@ -82,6 +98,9 @@ const ManagePage = () => {
 
       <AddCategoryDialogue visible={addCategoryModalVisible} onCancel={() => { setAddCategoryModalVisible(false) }} onUpdate={() => { getData() }} />
       <AddProductDialogue category={clickedCategory} visible={addProductModalVisible} onCancel={() => { setAddProductModalVisible(false) }} onUpdate={() => { getData() }} />
+      {clickedProduct &&
+        < ModifyCategoryDialogue product={clickedProduct} visible={modifyProductModalVisible} onCancel={() => { setModifyProductModalVisible(false) }} onUpdate={() => { getData() }} />
+      }
     </>
   )
 }

@@ -21,27 +21,14 @@ const AddCategoryDialogue = ({ visible, onCancel, onUpdate }) => {
   };
 
   return (
-    <Modal
-      visible={visible}
-      title="新增種類"
-      centered
-      onCancel={onCancel}
-      footer={null}
-    >
-      <Form
-        name="basic"
-        onFinish={onFinish}
-        autoComplete="off"
-      >
-        <Form.Item
-          label="名稱"
-          name="name"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your name!',
-            },
-          ]}
+    <Modal visible={visible} title="新增種類" onCancel={onCancel} footer={null} centered>
+      <Form name="basic" onFinish={onFinish} autoComplete="off">
+        <Form.Item label="名稱" name="name" rules={[
+          {
+            required: true,
+            message: 'Please input your name!',
+          },
+        ]}
         >
           <Input />
         </Form.Item>
@@ -52,7 +39,7 @@ const AddCategoryDialogue = ({ visible, onCancel, onUpdate }) => {
           </Button>
         </Form.Item>
       </Form>
-    </Modal>
+    </Modal >
   )
 }
 

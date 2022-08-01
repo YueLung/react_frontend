@@ -1,1 +1,2 @@
-import './spacing.css'
+import './spacing.css';
+import './color.css';
