@@ -36,7 +36,7 @@ const ManagePage = () => {
       render: (_, product) => (
         <Button type="primary" icon={<EditOutlined />} size="small"
           onClick={() => {
-            console.log(product)
+            // console.log(product)
             setClickedProduct(product);
             setModifyProductModalVisible(true);
           }}>
@@ -99,7 +99,7 @@ const ManagePage = () => {
       <AddCategoryDialogue visible={addCategoryModalVisible} onCancel={() => { setAddCategoryModalVisible(false) }} onUpdate={() => { getData() }} />
       <AddProductDialogue category={clickedCategory} visible={addProductModalVisible} onCancel={() => { setAddProductModalVisible(false) }} onUpdate={() => { getData() }} />
       {clickedProduct &&
-        < ModifyCategoryDialogue product={clickedProduct} visible={modifyProductModalVisible} onCancel={() => { setModifyProductModalVisible(false) }} onUpdate={() => { getData() }} />
+        <ModifyCategoryDialogue product={clickedProduct} visible={modifyProductModalVisible} onCancel={() => { setModifyProductModalVisible(false) }} onUpdate={() => { getData() }} />
       }
     </>
   )

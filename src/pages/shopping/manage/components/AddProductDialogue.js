@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form, Input } from 'antd';
 
 const AddProductDialogue = ({ category, visible, onCancel, onUpdate }) => {
+  const [form] = Form.useForm();
+  const [btnLoading, setBtnLoading] = useState(false);
+
   const onFinish = (values) => {
-    // console.log('Success:', values);
+    setBtnLoading(true);
     values.category = category;
     fetch(`${process.env.REACT_APP_END_POINT}/trial/product/`,
       {
@@ -16,14 +19,16 @@ const AddProductDialogue = ({ category, visible, onCancel, onUpdate }) => {
       .then(res => res.json())
       .then(data => {
         // console.log(data);
+        form.resetFields();
         onCancel();
         onUpdate();
+        setBtnLoading(false);
       });
   };
 
   return (
     <Modal visible={visible} title="新增商品" onCancel={onCancel} footer={null} centered>
-      <Form name="basic" onFinish={onFinish} autoComplete="off">
+      <Form form={form} name="basic" onFinish={onFinish} autoComplete="off">
         <Form.Item label="名稱" name="name" rules={[
           {
             required: true,
@@ -45,7 +50,7 @@ const AddProductDialogue = ({ category, visible, onCancel, onUpdate }) => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+          <Button type="primary" htmlType="submit" loading={btnLoading} style={{ width: '100%' }}>
             確認
           </Button>
         </Form.Item>
