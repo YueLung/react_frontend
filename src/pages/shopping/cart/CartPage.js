@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Card, Spin } from 'antd';
+import { Layout, Card, Spin, Col, Row } from 'antd';
+import './CartPage.css';
 const { Sider, Content } = Layout;
 
 const CartPage = () => {
@@ -34,7 +35,18 @@ const CartPage = () => {
 				<Layout>
 					<Content className="bg-white">
 						{(productCategoryInfos !== null) && productCategoryInfos.map((productCategoryInfo) =>
-							<Card title={productCategoryInfo.name}>
+							<Card title={productCategoryInfo.name} className="mb-2" size="small">
+								<Row justify="space-between" gutter={[24, 16]}>
+									{
+										productCategoryInfo.products.map(product => (
+											<Col xs={24} lg={12}>
+												<Card size="small" title={product.name}>
+													{product.price}
+												</Card>
+											</Col>
+										))
+									}
+								</Row>
 							</Card>
 						)}
 					</Content>

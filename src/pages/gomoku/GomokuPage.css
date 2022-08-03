@@ -1,0 +1,27 @@
+#goban {
+  padding-top: 40px;
+  width: 600px;
+  margin: auto;
+}
+
+.row {
+  clear: both;
+}
+
+.col {
+  display: table;
+  float: left;
+  margin: 0;
+  width: 40px;
+  height: 40px;
+  background:
+    linear-gradient(to bottom, transparent 48%,
+      #4c4c4c 48%,
+      #4c4c4c 52%,
+      transparent 52%),
+    linear-gradient(to right, transparent 48%,
+      #4c4c4c 48%,
+      #4c4c4c 52%,
+      transparent 52%);
+  text-align: center;
+}

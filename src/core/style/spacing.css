@@ -3,3 +3,9 @@
 
 .mb-1 { margin-bottom: 5px !important; }
 .mb-2 { margin-bottom: 8px !important; }
+
+.ml-1 { margin-left: 5px !important; }
+.ml-2 { margin-left: 8px !important; }
+
+.mr-1 { margin-right: 5px !important; }
+.mr-2 { margin-right: 8px !important; }

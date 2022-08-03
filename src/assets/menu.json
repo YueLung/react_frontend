@@ -41,7 +41,14 @@
 	},
 	{
 		"name": "AI遊戲",
-		"link": "ai",
-		"icon": ""
+		"icon": "",
+		"children": [
+			{
+				"name": "五子棋對戰",
+				"link": "ai/gomoku",
+				"icon": "",
+				"children": ""
+			}
+		]
 	}
 ]

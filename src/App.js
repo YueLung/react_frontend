@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
 import 'antd/dist/antd.css';
 import './App.css';
 import {
@@ -13,6 +13,7 @@ import HomePage from './pages/home/HomePage';
 import ApiTestPage from './pages/apiTest/ApiTestPage';
 import ManagePage from "pages/shopping/manage/ManagePage";
 import CartPage from "pages/shopping/cart/CartPage";
+import GomokuPage from 'pages/gomoku/GomokuPage';
 
 const { Header, Sider, Content } = Layout;
 
@@ -34,11 +35,30 @@ const menuItems = menu.map((data, i) => {
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [contentStyle, setContentStyle] = useState({ minWidth: 400, marginLeft: 200 });
+
+  let onCollapse = (value) => {
+    setCollapsed(value);
+    setContentStyle((prev) => {
+      if (prev.marginLeft === 200)
+        return { minWidth: 400, marginLeft: 80 }
+      else
+        return { minWidth: 400, marginLeft: 200 }
+    })
+  }
 
   return (
     <>
-      <Layout hasSider style={{ minHeight: '100vh' }}>
-        <Sider collapsible collapsed={collapsed}  >
+      <Layout hasSider style={{ minHeight: '100vh' }} >
+        <Sider collapsed={collapsed} onCollapse={onCollapse}
+          style={{
+            overflow: 'auto',
+            height: '100vh',
+            position: 'fixed',
+            left: 0,
+            top: 0,
+            bottom: 0,
+          }}>
           <div className="logo" />
           <Menu
             theme="dark"
@@ -47,22 +67,25 @@ const App = () => {
             items={menuItems}
           />
         </Sider>
-        <Layout className="site-layout">
-          <Header
-            className="site-layout-background"
+        <Layout className="site-layout" style={contentStyle}>
+          <Header className="site-layout-background"
             style={{
               padding: 0,
+              // position: 'fixed',
+              zIndex: 1,
+              width: '100%',
+              // color: '#3a86ff'
             }}
           >
             {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
               className: 'trigger',
-              onClick: () => setCollapsed(!collapsed),
+              onClick: () => onCollapse(!collapsed),
             })}
           </Header>
           <Content
             className="site-layout-background"
             style={{
-              margin: '24px 16px',
+              margin: '24px 16px 0',
               overflow: 'initial',
               padding: 24,
               // minHeight: 36
@@ -70,10 +93,18 @@ const App = () => {
           >
             <div>
               <Routes>
+                <Route path="/" element={<Navigate to="/home" />} />
                 <Route path="home" element={<HomePage />} />
                 <Route path="apiTest" element={<ApiTestPage />} />
                 <Route path="shopping/manage" element={<ManagePage />} />
                 <Route path="shopping/cart" element={<CartPage />} />
+                <Route path="ai/gomoku" element={<GomokuPage />} />
+                <Route path="*" element={
+                  <div>
+                    <h2>404 Page not found</h2>
+                  </div>
+                }
+                />
               </Routes>
             </div>
           </Content>

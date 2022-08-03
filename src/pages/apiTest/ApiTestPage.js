@@ -20,7 +20,7 @@ const ApiTestPage = () => {
 		})
 
 	return (
-		<div>ApiTest {(recvData === undefined) ? "目前還有沒有資料" : recvData}</div>
+		<div>ApiTest {(recvData === undefined) ? "目前還有沒有資料..." : recvData}</div>
 	);
 }
 
