@@ -21,9 +21,6 @@ const CartPage = () => {
 				},
 			});
 		let data = await response.json();
-		// data.forEach(element => {
-		// 	element.products.forEach(x => x.key = x.id)
-		// });
 		setProductCategoryInfos(data);
 		setIsLoading(false);
 	}
@@ -35,11 +32,11 @@ const CartPage = () => {
 				<Layout>
 					<Content className="bg-white">
 						{(productCategoryInfos !== null) && productCategoryInfos.map((productCategoryInfo) =>
-							<Card title={productCategoryInfo.name} className="mb-2" size="small">
+							<Card key={productCategoryInfo.id} title={productCategoryInfo.name} className="mb-2" size="small">
 								<Row justify="space-between" gutter={[24, 16]}>
 									{
 										productCategoryInfo.products.map(product => (
-											<Col xs={24} lg={12}>
+											<Col xs={24} lg={12} key={product.id}>
 												<Card size="small" title={product.name}>
 													{product.price}
 												</Card>

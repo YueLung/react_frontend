@@ -76,7 +76,7 @@ const ManagePage = () => {
         <Row gutter={[16, 16]}>
           {(productCategoryInfos !== null) &&
             productCategoryInfos.map((productCategoryInfo) =>
-              <Col xs={24} lg={12}>
+              <Col xs={24} lg={12} key={productCategoryInfo.id}>
                 <Card title={productCategoryInfo.name}
                   extra={<Button type="primary" size="small" icon={<PlusOutlined />}
                     onClick={() => {

@@ -5,18 +5,6 @@
 		"icon": ""
 	},
 	{
-		"name": "測試區",
-		"icon": "",
-		"children": [
-			{
-				"name": "ApiTest",
-				"link": "apiTest",
-				"icon": "",
-				"children": ""
-			}
-		]
-	},
-	{
 		"name": "React練習",
 		"icon": "",
 		"children": [
@@ -46,6 +34,60 @@
 			{
 				"name": "五子棋對戰",
 				"link": "ai/gomoku",
+				"icon": "",
+				"children": ""
+			}
+		]
+	},
+	{
+		"name": "測試區",
+		"icon": "",
+		"children": [
+			{
+				"name": "ApiTest",
+				"link": "apiTest",
+				"icon": "",
+				"children": ""
+			},
+			{
+				"name": "沒有內容",
+				"link": "",
+				"icon": "",
+				"children": ""
+			},
+			{
+				"name": "沒有內容",
+				"link": "",
+				"icon": "",
+				"children": ""
+			},
+			{
+				"name": "沒有內容",
+				"link": "",
+				"icon": "",
+				"children": ""
+			},
+			{
+				"name": "沒有內容",
+				"link": "",
+				"icon": "",
+				"children": ""
+			},
+			{
+				"name": "沒有內容",
+				"link": "",
+				"icon": "",
+				"children": ""
+			},
+			{
+				"name": "沒有內容",
+				"link": "",
+				"icon": "",
+				"children": ""
+			},
+			{
+				"name": "沒有內容",
+				"link": "",
 				"icon": "",
 				"children": ""
 			}

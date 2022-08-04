@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
 import 'antd/dist/antd.css';
 import './App.css';
 import {
@@ -35,25 +35,28 @@ const menuItems = menu.map((data, i) => {
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [contentStyle, setContentStyle] = useState({ minWidth: 400, marginLeft: 200 });
+  const [contentStyle, setContentStyle] = useState({ width: '100%', marginLeft: 200 });
+  const location = useLocation();
+  const currentPath = location.pathname;
+  console.log(currentPath)
 
   let onCollapse = (value) => {
     setCollapsed(value);
     setContentStyle((prev) => {
       if (prev.marginLeft === 200)
-        return { minWidth: 400, marginLeft: 80 }
+        return { width: '100%', marginLeft: 80 }
       else
-        return { minWidth: 400, marginLeft: 200 }
+        return { width: '100%', marginLeft: 200 }
     })
   }
 
   return (
     <>
       <Layout hasSider style={{ minHeight: '100vh' }} >
-        <Sider collapsed={collapsed} onCollapse={onCollapse}
+        <Sider collapsed={collapsed} onCollapse={(value) => { onCollapse(value) }}
           style={{
             overflow: 'auto',
-            height: '100vh',
+            height: '100%',
             position: 'fixed',
             left: 0,
             top: 0,
@@ -85,7 +88,7 @@ const App = () => {
           <Content
             className="site-layout-background"
             style={{
-              margin: '24px 16px 0',
+              margin: '24px 16px',
               overflow: 'initial',
               padding: 24,
               // minHeight: 36
