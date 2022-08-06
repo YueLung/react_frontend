@@ -5,6 +5,8 @@ const AddCategoryDialogue = ({ visible, onCancel, onUpdate }) => {
   const [form] = Form.useForm();
   const [btnLoading, setBtnLoading] = useState(false);
 
+  console.log('AddCategoryDialogue', visible)
+
   const onFinish = (values) => {
     setBtnLoading(true);
     fetch(`${process.env.REACT_APP_END_POINT}/trial/productInfo/`,
@@ -27,7 +29,14 @@ const AddCategoryDialogue = ({ visible, onCancel, onUpdate }) => {
   };
 
   return (
-    <Modal visible={visible} title="新增種類" onCancel={onCancel} footer={null} centered>
+    <Modal
+      visible={visible}
+      title="新增種類"
+      onCancel={onCancel}
+      footer={null}
+      centered
+      destroyOnClose={true}
+    >
       <Form form={form} name="basic" onFinish={onFinish} autoComplete="off"
         initialValues={{
           name: null,

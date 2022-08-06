@@ -33,7 +33,14 @@ const ModifyCategoryDialogue = ({ product, visible, onCancel, onUpdate }) => {
 
 
   return (
-    <Modal visible={visible} title="編輯商品" onCancel={onCancel} footer={null} centered>
+    <Modal
+      visible={visible}
+      title="編輯商品"
+      onCancel={onCancel}
+      footer={null}
+      centered
+      destroyOnClose={true}
+    >
       <Form form={form} name="basic" onFinish={onFinish} autoComplete="off">
         <Form.Item label="名稱" name="name" rules={[
           {

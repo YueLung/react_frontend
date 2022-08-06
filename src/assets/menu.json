@@ -1,21 +1,25 @@
 [
 	{
 		"name": "首頁",
+		"key": "MG-001",
 		"link": "home",
 		"icon": ""
 	},
 	{
 		"name": "React練習",
+		"key": "MG-002",
 		"icon": "",
 		"children": [
 			{
 				"name": "商品管理",
+				"key": "MG-002-001",
 				"link": "shopping/manage",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "商品購物",
+				"key": "MG-002-002",
 				"link": "shopping/cart",
 				"icon": "",
 				"children": ""
@@ -24,15 +28,18 @@
 	},
 	{
 		"name": "影像辨識",
+		"key": "MG-003",
 		"link": "cv",
 		"icon": ""
 	},
 	{
 		"name": "AI遊戲",
+		"key": "MG-004",
 		"icon": "",
 		"children": [
 			{
 				"name": "五子棋對戰",
+				"key": "MG-004-001",
 				"link": "ai/gomoku",
 				"icon": "",
 				"children": ""
@@ -41,52 +48,61 @@
 	},
 	{
 		"name": "測試區",
+		"key": "MG-005",
 		"icon": "",
 		"children": [
 			{
 				"name": "ApiTest",
+				"key": "MG-005-001",
 				"link": "apiTest",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "沒有內容",
+				"key": "MG-005-002",
 				"link": "",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "沒有內容",
+				"key": "MG-005-003",
 				"link": "",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "沒有內容",
+				"key": "MG-005-004",
 				"link": "",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "沒有內容",
+				"key": "MG-005-005",
 				"link": "",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "沒有內容",
+				"key": "MG-005-006",
 				"link": "",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "沒有內容",
+				"key": "MG-005-007",
 				"link": "",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "沒有內容",
+				"key": "MG-005-008",
 				"link": "",
 				"icon": "",
 				"children": ""

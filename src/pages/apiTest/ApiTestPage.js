@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const ApiTestPage = () => {
+	console.log('enter ApiTestPage')
 	const [recvData, setRepo] = useState();
 
 	fetch(`${process.env.REACT_APP_END_POINT}/trial/api_test`, {

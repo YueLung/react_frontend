@@ -96,10 +96,24 @@ const ManagePage = () => {
         </Row>
       </Spin >
 
-      <AddCategoryDialogue visible={addCategoryModalVisible} onCancel={() => { setAddCategoryModalVisible(false) }} onUpdate={() => { getData() }} />
-      <AddProductDialogue category={clickedCategory} visible={addProductModalVisible} onCancel={() => { setAddProductModalVisible(false) }} onUpdate={() => { getData() }} />
+      <AddCategoryDialogue
+        visible={addCategoryModalVisible}
+        onCancel={() => setAddCategoryModalVisible(false)}
+        onUpdate={() => getData()}
+      />
+      <AddProductDialogue
+        category={clickedCategory}
+        visible={addProductModalVisible}
+        onCancel={() => setAddProductModalVisible(false)}
+        onUpdate={() => getData()}
+      />
       {clickedProduct &&
-        <ModifyCategoryDialogue product={clickedProduct} visible={modifyProductModalVisible} onCancel={() => { setModifyProductModalVisible(false) }} onUpdate={() => { getData() }} />
+        <ModifyCategoryDialogue
+          product={clickedProduct}
+          visible={modifyProductModalVisible}
+          onCancel={() => setModifyProductModalVisible(false)}
+          onUpdate={() => getData()}
+        />
       }
     </>
   )
