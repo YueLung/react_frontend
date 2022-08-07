@@ -1,7 +1,6 @@
 #goban {
-  padding-top: 40px;
-  width: 600px;
-  margin: auto;
+  margin-top: 20px;
+  background-color: bisque;
 }
 
 .row {
@@ -24,4 +23,35 @@
       #4c4c4c 52%,
       transparent 52%);
   text-align: center;
+}
+
+[class*="chess"] {
+  font-size: 0;
+  box-shadow: none;
+  border: none !important;
+}
+
+[class*="chess"]:hover {
+  /* background: transparent; */
+}
+
+.none-chess,
+.none-chess:hover,
+.none-chess:focus,
+.none-chess:active {
+  background: transparent;
+}
+
+.black-chess,
+.black-chess:hover,
+.black-chess:focus,
+.black-chess:active {
+  background: #000;
+}
+
+.white-chess,
+.white-chess:hover,
+.white-chess:focus,
+.white-chess:active {
+  background: #fff;
 }

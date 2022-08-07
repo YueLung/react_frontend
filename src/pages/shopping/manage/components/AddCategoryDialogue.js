@@ -5,8 +5,6 @@ const AddCategoryDialogue = ({ visible, onCancel, onUpdate }) => {
   const [form] = Form.useForm();
   const [btnLoading, setBtnLoading] = useState(false);
 
-  console.log('AddCategoryDialogue', visible)
-
   const onFinish = (values) => {
     setBtnLoading(true);
     fetch(`${process.env.REACT_APP_END_POINT}/trial/productInfo/`,
