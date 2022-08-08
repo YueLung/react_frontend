@@ -6,6 +6,7 @@ import { isWin, isTie } from './logic/connectStrategy.js';
 import { rdnPlayChess } from './logic/randomAi.js';
 const { Option } = Select;
 
+
 const GomokuPage = () => {
   const [boardStyle, setBoardStyle] = useState({ width: '120px', height: '120px' });
   const [selectedBoardSize, setSelectedBoardSize] = useState(3);
@@ -15,69 +16,20 @@ const GomokuPage = () => {
   const [currentPlayer, setCurrentPlayer] = useState(BLACK_PLAYER);
   const [isEndGame, setIsEndGame] = useState(false);
   const [message, setMessage] = useState('');
+  const [latestChessInfo, setLatestChessInfo] = useState(null);
 
-  // useEffect()
+  let aiPlayerType = WHITE_PLAYER;
 
   const updatePlayRule = () => {
     if (selectedBoardSize === 3) setBoardStyle({ width: '120px', height: '120px' });
     else if (selectedBoardSize === 5) setBoardStyle({ width: '200px', height: '200px' });
     else if (selectedBoardSize === 10) setBoardStyle({ width: '400px', height: '400px' });
 
+    setLatestChessInfo(null);
     setIsEndGame(false);
     setCurrentBoardSize(selectedBoardSize);
     setBoardModel(Array.from({ length: selectedBoardSize }, () => Array.from({ length: selectedBoardSize }, () => NONE_CHESS)));
     setCurrentPlayer(BLACK_PLAYER);
-  }
-
-  const playChess = (x, y, chessType) => {
-    setBoardModel(prev => {
-      let array = [...prev];
-      array[y][x] = chessType;
-      return array;
-    });
-
-    // if (currentPlayer === BLACK_PLAYER) setCurrentPlayer(WHITE_PLAYER);
-    // else if (currentPlayer === WHITE_PLAYER) setCurrentPlayer(BLACK_PLAYER);
-  }
-
-  function checkEndGame(chessType, x, y) {
-    const boardInfo = { board: boardModel, boardSize: currentBoardSize, winCount: currentBoardSize === 3 ? 3 : 5 };
-    const _isWin = isWin(
-      boardInfo,
-      { chessType, x, y }
-    );
-
-    const _isTie = isTie(boardInfo);
-    if (_isWin) {
-      setIsEndGame(true);
-      setMessage(chessType === BLACK_CHESS ? '黑棋獲勝' : '白棋獲勝');
-      return true;
-    }
-    else if (_isTie) {
-      setIsEndGame(true);
-      setMessage('平手');
-      return true;
-    }
-    return false;
-  }
-
-  const onBoardClick = (i, j) => {
-    if (boardModel[i][j] !== NONE_CHESS) return;
-    if (isEndGame) return;
-
-    const chessType = currentPlayer === BLACK_PLAYER ? BLACK_CHESS : WHITE_CHESS;
-    playChess(j, i, chessType);
-
-    setTimeout(() => {
-      if (checkEndGame(chessType, j, i) === false) {
-        let aiPlayPosition = rdnPlayChess(boardModel, currentBoardSize);
-        const aiChessType = chessType === BLACK_CHESS ? WHITE_CHESS : BLACK_CHESS;
-        playChess(aiPlayPosition.x, aiPlayPosition.y, aiChessType);
-        setTimeout(() => {
-          checkEndGame(aiChessType, aiPlayPosition.x, aiPlayPosition.y);
-        }, 10)
-      }
-    }, 10);
   }
 
   const getStyle = (i, j) => {
@@ -86,7 +38,67 @@ const GomokuPage = () => {
     if (boardModel[i][j] === WHITE_CHESS) return 'white-chess';
   }
 
-  // console.log(tableModel,'tableModel');
+  const onBoardClick = (i, j) => {
+    if (boardModel[i][j] !== NONE_CHESS) return;
+    if (isEndGame) return;
+
+    const chessType = currentPlayer === BLACK_PLAYER ? BLACK_CHESS : WHITE_CHESS;
+
+    setBoardModel(prev => {
+      prev[i][j] = chessType;
+      return [...prev];
+    });
+
+    setLatestChessInfo({ x: j, y: i, chessType });
+
+    if (currentPlayer === BLACK_PLAYER) setCurrentPlayer(WHITE_PLAYER);
+    else if (currentPlayer === WHITE_PLAYER) setCurrentPlayer(BLACK_PLAYER);
+  }
+
+  useEffect(() => {
+    // check is anyone win or tie
+    if (latestChessInfo) {
+      const boardInfo = { board: boardModel, boardSize: currentBoardSize, winCount: currentBoardSize === 3 ? 3 : 5 };
+      const _isWin = isWin(
+        boardInfo,
+        latestChessInfo
+      );
+
+      const _isTie = isTie(boardInfo);
+      if (_isWin) {
+        setIsEndGame(true);
+        setMessage(latestChessInfo.chessType === BLACK_CHESS ? '黑棋獲勝' : '白棋獲勝');
+        return;
+      }
+      else if (_isTie) {
+        setIsEndGame(true);
+        setMessage('平手');
+        return;
+      }
+    }
+
+    // turn computer
+    if (currentPlayer === aiPlayerType) {
+      // console.log('turn ai');
+      const aiChessType = aiPlayerType === BLACK_PLAYER ? BLACK_CHESS : WHITE_CHESS;
+      let aiPlayPosition = rdnPlayChess(boardModel, currentBoardSize);
+      setBoardModel(prev => {
+        prev[aiPlayPosition.y][aiPlayPosition.x] = aiChessType;
+        return [...prev];
+      });
+
+      setLatestChessInfo({
+        x: aiPlayPosition.x,
+        y: aiPlayPosition.y,
+        chessType: aiChessType
+      });
+
+      if (aiPlayerType === BLACK_PLAYER) setCurrentPlayer(WHITE_PLAYER);
+      else if (aiPlayerType === WHITE_PLAYER) setCurrentPlayer(BLACK_PLAYER);
+    }
+
+  }, [boardModel]);
+
 
   return (
     <>
