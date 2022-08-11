@@ -1,35 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Select, Alert } from 'antd';
 import './GomokuPage.css';
-import { WHITE_PLAYER, BLACK_PLAYER, NONE_CHESS, BLACK_CHESS, WHITE_CHESS } from './logic/define.js';
+import { NONE_CHESS, BLACK_CHESS, WHITE_CHESS } from './logic/define.js';
 import { isWin, isTie } from './logic/connectStrategy.js';
 import { rdnPlayChess } from './logic/randomAi.js';
+import { easyPlayChess } from './logic/easyAi.js'
 const { Option } = Select;
 
 
 const GomokuPage = () => {
-  const [boardStyle, setBoardStyle] = useState({ width: '120px', height: '120px' });
-  const [selectedBoardSize, setSelectedBoardSize] = useState(3);
+  const [boardStyle, setBoardStyle] = useState({ width: '', height: '' });
+  const [selectedBoardSize, setSelectedBoardSize] = useState(10);
   const [currentBoardSize, setCurrentBoardSize] = useState(selectedBoardSize);
   const [boardModel, setBoardModel] = useState(Array.from({ length: currentBoardSize }, () => Array.from({ length: currentBoardSize }, () => NONE_CHESS)));
   // const [tableModel, setTableModel] = useState(Array(currenTableSize).fill(Array(currenTableSize).fill(NONE_CHESS)));
-  const [currentPlayer, setCurrentPlayer] = useState(BLACK_PLAYER);
+  const [currentPlayer, setCurrentPlayer] = useState(BLACK_CHESS);
   const [isEndGame, setIsEndGame] = useState(false);
   const [message, setMessage] = useState('');
   const [latestChessInfo, setLatestChessInfo] = useState(null);
 
-  let aiPlayerType = WHITE_PLAYER;
+  let aiPlayerType = WHITE_CHESS;
+
+  useEffect(() => {
+    updatePlayRule();
+  }, []);
 
   const updatePlayRule = () => {
     if (selectedBoardSize === 3) setBoardStyle({ width: '120px', height: '120px' });
-    else if (selectedBoardSize === 5) setBoardStyle({ width: '200px', height: '200px' });
     else if (selectedBoardSize === 10) setBoardStyle({ width: '400px', height: '400px' });
+    else if (selectedBoardSize === 15) setBoardStyle({ width: '600px', height: '600px' });
 
     setLatestChessInfo(null);
     setIsEndGame(false);
     setCurrentBoardSize(selectedBoardSize);
     setBoardModel(Array.from({ length: selectedBoardSize }, () => Array.from({ length: selectedBoardSize }, () => NONE_CHESS)));
-    setCurrentPlayer(BLACK_PLAYER);
+    setCurrentPlayer(BLACK_CHESS);
   }
 
   const getStyle = (i, j) => {
@@ -42,7 +47,7 @@ const GomokuPage = () => {
     if (boardModel[i][j] !== NONE_CHESS) return;
     if (isEndGame) return;
 
-    const chessType = currentPlayer === BLACK_PLAYER ? BLACK_CHESS : WHITE_CHESS;
+    const chessType = currentPlayer === BLACK_CHESS ? BLACK_CHESS : WHITE_CHESS;
 
     setBoardModel(prev => {
       prev[i][j] = chessType;
@@ -51,8 +56,8 @@ const GomokuPage = () => {
 
     setLatestChessInfo({ x: j, y: i, chessType });
 
-    if (currentPlayer === BLACK_PLAYER) setCurrentPlayer(WHITE_PLAYER);
-    else if (currentPlayer === WHITE_PLAYER) setCurrentPlayer(BLACK_PLAYER);
+    if (currentPlayer === BLACK_CHESS) setCurrentPlayer(WHITE_CHESS);
+    else if (currentPlayer === WHITE_CHESS) setCurrentPlayer(BLACK_CHESS);
   }
 
   useEffect(() => {
@@ -80,8 +85,9 @@ const GomokuPage = () => {
     // turn computer
     if (currentPlayer === aiPlayerType) {
       // console.log('turn ai');
-      const aiChessType = aiPlayerType === BLACK_PLAYER ? BLACK_CHESS : WHITE_CHESS;
-      let aiPlayPosition = rdnPlayChess(boardModel, currentBoardSize);
+      const aiChessType = aiPlayerType === BLACK_CHESS ? BLACK_CHESS : WHITE_CHESS;
+      // let aiPlayPosition = rdnPlayChess(boardModel, currentBoardSize);
+      let aiPlayPosition = easyPlayChess(boardModel, aiChessType);
       setBoardModel(prev => {
         prev[aiPlayPosition.y][aiPlayPosition.x] = aiChessType;
         return [...prev];
@@ -93,8 +99,8 @@ const GomokuPage = () => {
         chessType: aiChessType
       });
 
-      if (aiPlayerType === BLACK_PLAYER) setCurrentPlayer(WHITE_PLAYER);
-      else if (aiPlayerType === WHITE_PLAYER) setCurrentPlayer(BLACK_PLAYER);
+      if (aiPlayerType === BLACK_CHESS) setCurrentPlayer(WHITE_CHESS);
+      else if (aiPlayerType === WHITE_CHESS) setCurrentPlayer(BLACK_CHESS);
     }
 
   }, [boardModel]);
@@ -103,14 +109,14 @@ const GomokuPage = () => {
   return (
     <>
       <Select
-        defaultValue="3"
+        defaultValue="10"
         style={{ width: 120 }}
         className="mr-2"
         onChange={(value) => setSelectedBoardSize(+value)}
       >
         <Option value="3">3x3</Option>
-        <Option value="5">5x5</Option>
         <Option value="10">10x10</Option>
+        <Option value="15">15x15</Option>
       </Select>
 
       <Button

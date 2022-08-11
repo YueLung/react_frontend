@@ -6,41 +6,41 @@
 		"icon": ""
 	},
 	{
-		"name": "React練習",
+		"name": "影像辨識",
 		"key": "MG-002",
+		"link": "cv",
+		"icon": ""
+	},
+	{
+		"name": "AI遊戲",
+		"key": "MG-003",
 		"icon": "",
 		"children": [
 			{
-				"name": "商品管理",
-				"key": "MG-002-001",
-				"link": "shopping/manage",
-				"icon": "",
-				"children": ""
-			},
-			{
-				"name": "商品購物",
-				"key": "MG-002-002",
-				"link": "shopping/cart",
+				"name": "五子棋對戰",
+				"key": "MG-003-001",
+				"link": "ai/gomoku",
 				"icon": "",
 				"children": ""
 			}
 		]
 	},
 	{
-		"name": "影像辨識",
-		"key": "MG-003",
-		"link": "cv",
-		"icon": ""
-	},
-	{
-		"name": "AI遊戲",
+		"name": "React練習",
 		"key": "MG-004",
 		"icon": "",
 		"children": [
 			{
-				"name": "五子棋對戰",
+				"name": "商品管理",
 				"key": "MG-004-001",
-				"link": "ai/gomoku",
+				"link": "shopping/manage",
+				"icon": "",
+				"children": ""
+			},
+			{
+				"name": "商品購物",
+				"key": "MG-004-002",
+				"link": "shopping/cart",
 				"icon": "",
 				"children": ""
 			}
