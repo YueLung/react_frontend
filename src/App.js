@@ -10,8 +10,13 @@ import ApiTestPage from './pages/apiTest/ApiTestPage';
 import ManagePage from "pages/shopping/manage/ManagePage";
 import CartPage from "pages/shopping/cart/CartPage";
 import GomokuPage from 'pages/gomoku/GomokuPage';
-
 const { Header, Sider, Content } = Layout;
+
+
+function Angular() {
+  window.open('https://yuelung-ng-demo.herokuapp.com/', '_blank');
+  return null;
+}
 
 function getItem(key, name, link, icon, children) {
   return {
@@ -138,6 +143,7 @@ const App = () => {
                 <Route path="shopping/manage" element={<ManagePage />} />
                 <Route path="shopping/cart" element={<CartPage />} />
                 <Route path="ai/gomoku" element={<GomokuPage />} />
+                <Route path="angular" element={<Angular />} />
                 <Route path="*" element={
                   <div>
                     <h2>404 Page not found</h2>

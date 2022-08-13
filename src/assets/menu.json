@@ -26,20 +26,26 @@
 		]
 	},
 	{
-		"name": "React練習",
+		"name": "Angular練習",
 		"key": "MG-004",
+		"link": "angular",
+		"icon": ""
+	},
+	{
+		"name": "React練習",
+		"key": "MG-005",
 		"icon": "",
 		"children": [
 			{
 				"name": "商品管理",
-				"key": "MG-004-001",
+				"key": "MG-005-001",
 				"link": "shopping/manage",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "商品購物",
-				"key": "MG-004-002",
+				"key": "MG-005-002",
 				"link": "shopping/cart",
 				"icon": "",
 				"children": ""
@@ -48,61 +54,61 @@
 	},
 	{
 		"name": "測試區",
-		"key": "MG-005",
+		"key": "MG-006",
 		"icon": "",
 		"children": [
 			{
 				"name": "ApiTest",
-				"key": "MG-005-001",
+				"key": "MG-006-001",
 				"link": "apiTest",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "沒有內容",
-				"key": "MG-005-002",
+				"key": "MG-006-002",
 				"link": "",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "沒有內容",
-				"key": "MG-005-003",
+				"key": "MG-006-003",
 				"link": "",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "沒有內容",
-				"key": "MG-005-004",
+				"key": "MG-006-004",
 				"link": "",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "沒有內容",
-				"key": "MG-005-005",
+				"key": "MG-006-005",
 				"link": "",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "沒有內容",
-				"key": "MG-005-006",
+				"key": "MG-006-006",
 				"link": "",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "沒有內容",
-				"key": "MG-005-007",
+				"key": "MG-006-007",
 				"link": "",
 				"icon": "",
 				"children": ""
 			},
 			{
 				"name": "沒有內容",
-				"key": "MG-005-008",
+				"key": "MG-006-008",
 				"link": "",
 				"icon": "",
 				"children": ""
