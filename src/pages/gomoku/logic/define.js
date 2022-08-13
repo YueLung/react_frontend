@@ -4,3 +4,14 @@
 export const NONE_CHESS = -1;
 export const BLACK_CHESS = 0;
 export const WHITE_CHESS = 1;
+
+export const Horizontal = 0
+export const Vertical = 1;
+export const RightOblique = 2
+export const LeftOblique = 3;
+
+
+export const RANDOM_AI = 'RANDOM_AI';
+export const EASY_AI = 'EASY_AI';
+export const MEDIUM_AI = 'MEDIUM_AI';
+export const HARD_AI = 'HARD_AI';

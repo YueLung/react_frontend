@@ -1,12 +1,12 @@
 import { NONE_CHESS } from './define.js';
 
 
-export function isWin(boardInfo, checkedChessInfo) {
+export function checkIsWin(boardInfo, checkedChessInfo) {
   return isWinHorizontal(boardInfo, checkedChessInfo) || isWinVertical(boardInfo, checkedChessInfo) ||
     isWinRightOblique(boardInfo, checkedChessInfo) || isWinLeftOblique(boardInfo, checkedChessInfo);
 }
 
-export function isTie(boardInfo) {
+export function checkIsTie(boardInfo) {
   let res = true;
 
   for (let y = 0; y < boardInfo.boardSize; y++) {

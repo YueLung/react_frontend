@@ -1,5 +1,5 @@
 import { NONE_CHESS } from './define.js';
-import { getScore } from './onePointEvaluation';
+import { getScore as getOnePointScore } from './onePointEvaluation';
 
 
 export function easyPlayChess(board, chessType) {
@@ -11,7 +11,7 @@ export function easyPlayChess(board, chessType) {
     for (let x = 0; x < board.length; x++) {
 
       if (board[y][x] === NONE_CHESS) {
-        let score = getScore(board, y, x, chessType);
+        let score = getOnePointScore(board, y, x, chessType);
 
         if (score > bestScore) {
           bestScore = score;

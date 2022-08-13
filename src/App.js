@@ -33,7 +33,7 @@ const App = () => {
   const [openKeys, setOpenKeys] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [collapsed, setCollapsed] = useState(false);
-  const [contentStyle, setContentStyle] = useState({ width: '100%', marginLeft: 0 });
+  const [contentStyle, setContentStyle] = useState({ minWidth: '700px', width: '100%', marginLeft: 0 });
   const location = useLocation();
 
   useEffect(() => {
@@ -112,7 +112,7 @@ const App = () => {
               padding: 0,
               // position: 'fixed',
               zIndex: 1,
-              width: '100%',
+              // width: '100%',
               // color: '#3a86ff'
             }}
           >

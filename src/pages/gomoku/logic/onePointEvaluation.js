@@ -1,16 +1,18 @@
-import { BLACK_CHESS, WHITE_CHESS, NONE_CHESS } from './define.js'
-
-const Horizontal = 0
-const Vertical = 1;
-const RightOblique = 2
-const LeftOblique = 3;
+import {
+  NONE_CHESS,
+  Horizontal,
+  Vertical,
+  RightOblique,
+  LeftOblique
+} from './define.js'
+import { getOppositeChessType } from './util.js';
 
 
 export function getScore(board, y, x, chessType) {
   let attackCloneModel = [...board.map(ary => [...ary])];
   let defenseCloneModel = [...board.map(ary => [...ary])];
 
-  const enemyChessType = chessType === BLACK_CHESS ? WHITE_CHESS : BLACK_CHESS;
+  const enemyChessType = getOppositeChessType(chessType);
 
   attackCloneModel[y][x] = chessType;
   defenseCloneModel[y][x] = enemyChessType;
@@ -26,11 +28,9 @@ function getOnePointScore(board, x, y, chessType) {
     +(getAttackLineScore(Vertical, board, x, y, chessType)) +
     +(getAttackLineScore(RightOblique, board, x, y, chessType)) +
     +(getAttackLineScore(LeftOblique, board, x, y, chessType));
-
 }
 
 function getAttackLineScore(AttackDirection, board, x, y, chessType) {
-
   if (AttackDirection === Horizontal) {
     const directionInfoRight = getAttackConnectInfo(board, x, y, chessType, 1, 0);
     const directionInfoLeft = getAttackConnectInfo(board, x, y, chessType, -1, 0);
@@ -57,7 +57,7 @@ function getAttackLineScore(AttackDirection, board, x, y, chessType) {
   }
 }
 
-function getAttackConnectInfo(board, x, y, chessType, volumeX, volumeY) {
+export function getAttackConnectInfo(board, x, y, chessType, volumeX, volumeY) {
   let res = {};
   let connectCount = 0;
 
