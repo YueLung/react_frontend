@@ -87,12 +87,12 @@ function minMaxSearch(board, chessType, isMaxLayer, depth, alpha, beta, minMaxSe
     }
 
     if (depth === 0) {
-      console.log(`y: ${y}  x: ${x} score: ${tmpScore}  bestScore:${bestPosInfo.score} depth: ${depth} `);
+      // console.log(`y: ${y}  x: ${x} score: ${tmpScore}  bestScore:${bestPosInfo.score} depth: ${depth} `);
       //bestModel.PrintBoard();
     }
   }
 
-  console.log('bestPosInfo', bestPosInfo);
+  // console.log('bestPosInfo', bestPosInfo);
   return bestPosInfo;
 }
 

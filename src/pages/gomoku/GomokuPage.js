@@ -15,6 +15,7 @@ import { rdnPlayChess } from './logic/randomAi.js';
 import { easyPlayChess } from './logic/easyAi.js';
 import './GomokuPage.css';
 import { minMaxPlayChess } from './logic/minMaxAi.js';
+import { getOppositeChessType } from './logic/util';
 const { Option } = Select;
 
 
@@ -23,7 +24,7 @@ const GomokuPage = () => {
   const [selectedBoardSize, setSelectedBoardSize] = useState(10);
   const [currentBoardSize, setCurrentBoardSize] = useState(selectedBoardSize);
   const [boardModel, setBoardModel] = useState(Array.from({ length: currentBoardSize }, () => Array.from({ length: currentBoardSize }, () => NONE_CHESS)));
-  const [currentPlayer, setCurrentPlayer] = useState(BLACK_CHESS);
+  const [currentPlayChess, setCurrentPlayChess] = useState(BLACK_CHESS);
   const [isEndGame, setIsEndGame] = useState(false);
   const [message, setMessage] = useState('');
   const [latestChessInfo, setLatestChessInfo] = useState(null);
@@ -48,7 +49,9 @@ const GomokuPage = () => {
       const _isTie = checkIsTie(boardInfo);
       if (_isWin) {
         setIsEndGame(true);
-        setMessage(latestChessInfo.chessType === BLACK_CHESS ? '黑棋獲勝' : '白棋獲勝');
+        setMessage(prev => {
+          return `${prev}     ${(latestChessInfo.chessType === BLACK_CHESS ? '黑棋獲勝' : '白棋獲勝')}`;
+        });
         return;
       }
       else if (_isTie) {
@@ -59,7 +62,7 @@ const GomokuPage = () => {
     }
 
     // turn computer
-    if (opponentType !== PEOPLE && currentPlayer === aiPlayChess) {
+    if (opponentType !== PEOPLE && currentPlayChess === aiPlayChess) {
       // console.log('turn ai');
 
       let aiPlayPosition;
@@ -87,10 +90,9 @@ const GomokuPage = () => {
         chessType: aiPlayChess
       });
 
-      if (aiPlayChess === BLACK_CHESS) setCurrentPlayer(WHITE_CHESS);
-      else if (aiPlayChess === WHITE_CHESS) setCurrentPlayer(BLACK_CHESS);
+      const nextPlayChess = getOppositeChessType(aiPlayChess);
+      setCurrentPlayChess(nextPlayChess);
     }
-
   }, [boardModel]);
 
 
@@ -103,20 +105,24 @@ const GomokuPage = () => {
     setIsEndGame(false);
     setCurrentBoardSize(selectedBoardSize);
     setBoardModel(Array.from({ length: selectedBoardSize }, () => Array.from({ length: selectedBoardSize }, () => NONE_CHESS)));
-    setCurrentPlayer(BLACK_CHESS);
+    setCurrentPlayChess(BLACK_CHESS);
+    setMessage(opponentType);
   }
 
   const getStyle = (i, j) => {
-    if (boardModel[i][j] === NONE_CHESS) return 'none-chess';
-    if (boardModel[i][j] === BLACK_CHESS) return 'black-chess';
-    if (boardModel[i][j] === WHITE_CHESS) return 'white-chess';
+    let res = '';
+    if (latestChessInfo && latestChessInfo.y === i && latestChessInfo.x === j) res = 'latest-chess '
+    if (boardModel[i][j] === NONE_CHESS) return res + 'none-chess';
+    if (boardModel[i][j] === BLACK_CHESS) return res + 'black-chess';
+    if (boardModel[i][j] === WHITE_CHESS) return res + 'white-chess';
   }
 
   const onBoardClick = (i, j) => {
     if (boardModel[i][j] !== NONE_CHESS) return;
     if (isEndGame) return;
+    if (opponentType !== PEOPLE && currentPlayChess === aiPlayChess) return;
 
-    const chessType = currentPlayer === BLACK_CHESS ? BLACK_CHESS : WHITE_CHESS;
+    const chessType = currentPlayChess;
 
     setBoardModel(prev => {
       prev[i][j] = chessType;
@@ -125,55 +131,52 @@ const GomokuPage = () => {
 
     setLatestChessInfo({ x: j, y: i, chessType });
 
-    if (currentPlayer === BLACK_CHESS) setCurrentPlayer(WHITE_CHESS);
-    else if (currentPlayer === WHITE_CHESS) setCurrentPlayer(BLACK_CHESS);
+    const nextPlayChess = getOppositeChessType(currentPlayChess);
+    setCurrentPlayChess(nextPlayChess);
   }
 
 
   return (
     <>
+      <Select
+        defaultValue="10"
+        style={{ width: 150 }}
+        className="mr-2"
+        onChange={(value) => setSelectedBoardSize(+value)}
+      >
+        <Option value="3">3x3</Option>
+        <Option value="10">10x10</Option>
+        <Option value="15">15x15</Option>
+      </Select>
 
-      <div>
-        <Select
-          defaultValue="10"
-          style={{ width: 150 }}
-          className="mr-2"
-          onChange={(value) => setSelectedBoardSize(+value)}
-        >
-          <Option value="3">3x3</Option>
-          <Option value="10">10x10</Option>
-          <Option value="15">15x15</Option>
-        </Select>
+      <Button
+        type="primary"
+        onClick={updatePlayRule}
+        className="mr-2"
+      >
+        更換棋盤
+      </Button>
+      <Select
+        defaultValue={selectedOpponentType}
+        style={{ width: 200 }}
+        className="mr-2"
+        onChange={(value) => setSelectedOpponentType(value)}
+      >
+        <Option value={PEOPLE}>{PEOPLE}</Option>
+        <Option value={RANDOM_AI}>{RANDOM_AI}</Option>
+        <Option value={EASY_AI}>{EASY_AI}</Option>
+        <Option value={MEDIUM_AI}>{MEDIUM_AI}</Option>
+        <Option value={HARD_AI}>{HARD_AI}</Option>
+      </Select>
 
-        <Button
-          type="primary"
-          onClick={updatePlayRule}
-          className="mr-2"
-        >
-          開始
-        </Button>
-      </div>
-      <div className="mt-2">
-        <Select
-          defaultValue={selectedOpponentType}
-          style={{ width: 150 }}
-          className="mr-2"
-          onChange={(value) => setSelectedOpponentType(value)}
-        >
-          <Option value={PEOPLE}>{PEOPLE}</Option>
-          <Option value={RANDOM_AI}>{RANDOM_AI}</Option>
-          <Option value={EASY_AI}>{EASY_AI}</Option>
-          <Option value={MEDIUM_AI}>{MEDIUM_AI}</Option>
-          <Option value={HARD_AI}>{HARD_AI}</Option>
-        </Select>
+      <Button
+        type="primary"
+        onClick={() => { setOpponentType(selectedOpponentType); setMessage(selectedOpponentType); }}
+      >
+        更換對手
+      </Button>
 
-        <Button
-          type="primary"
-          onClick={() => { setOpponentType(selectedOpponentType) }}
-        >
-          更換對手
-        </Button>
-      </div>
+      <Alert style={{ width: '475px', height: '35px' }} className="mt-1 mb-1" message={message} type="success" />
 
       <div id="goban" style={boardStyle}>
         {
@@ -189,11 +192,10 @@ const GomokuPage = () => {
                         <Button
                           type="primary"
                           shape="circle"
-                          // icon={<PlusOutlined />}
                           onClick={() => onBoardClick(i, j)}
                           className={getStyle(i, j)}
                         >
-                          ""
+                          chess
                         </Button>
                       </div>
                     ))
@@ -202,10 +204,6 @@ const GomokuPage = () => {
             ))
         }
       </div>
-
-      {isEndGame &&
-        <Alert className="mt-2" message={message} type="success" />
-      }
     </>
   )
 }

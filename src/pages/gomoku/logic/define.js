@@ -11,8 +11,8 @@ export const RightOblique = 2
 export const LeftOblique = 3;
 
 
-export const PEOPLE = '雙人對戰';
-export const RANDOM_AI = '隨機下AI';
-export const EASY_AI = '簡單';
-export const MEDIUM_AI = '中級';
-export const HARD_AI = '困難';
+export const PEOPLE = '遊戲模式: 雙人對戰';
+export const RANDOM_AI = '遊戲模式: 電腦隨機下';
+export const EASY_AI = '遊戲模式: 簡單電腦';
+export const MEDIUM_AI = '遊戲模式: 中級電腦';
+export const HARD_AI = '遊戲模式: 困難電腦';

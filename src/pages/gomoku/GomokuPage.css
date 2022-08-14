@@ -1,5 +1,4 @@
 #goban {
-  margin-top: 20px;
   background-color: bisque;
 }
 
@@ -28,11 +27,16 @@
 [class*="chess"] {
   font-size: 0;
   box-shadow: none;
-  border: none !important;
+  border: none;
+  transform: scale(0.8);
 }
 
 [class*="chess"]:hover {
   /* background: transparent; */
+}
+
+.latest-chess {
+  box-shadow: rgb(31, 193, 27) 0px 0px 0px 4px
 }
 
 .none-chess,
