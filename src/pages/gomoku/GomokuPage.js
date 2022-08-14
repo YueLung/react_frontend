@@ -4,6 +4,7 @@ import {
   NONE_CHESS,
   BLACK_CHESS,
   WHITE_CHESS,
+  PEOPLE,
   RANDOM_AI,
   EASY_AI,
   MEDIUM_AI,
@@ -26,8 +27,8 @@ const GomokuPage = () => {
   const [isEndGame, setIsEndGame] = useState(false);
   const [message, setMessage] = useState('');
   const [latestChessInfo, setLatestChessInfo] = useState(null);
-  const [selectedAiType, setSelectedAiType] = useState(MEDIUM_AI);
-  const [aiType, setAiType] = useState(MEDIUM_AI);
+  const [selectedOpponentType, setSelectedOpponentType] = useState(MEDIUM_AI);
+  const [opponentType, setOpponentType] = useState(MEDIUM_AI);
 
   let aiPlayChess = WHITE_CHESS;
 
@@ -58,22 +59,21 @@ const GomokuPage = () => {
     }
 
     // turn computer
-    if (currentPlayer === aiPlayChess) {
+    if (opponentType !== PEOPLE && currentPlayer === aiPlayChess) {
       // console.log('turn ai');
 
-
       let aiPlayPosition;
-      if (aiType === RANDOM_AI) {
+      if (opponentType === RANDOM_AI) {
         aiPlayPosition = rdnPlayChess(boardModel, currentBoardSize);
       }
-      else if (aiType === EASY_AI) {
+      else if (opponentType === EASY_AI) {
         aiPlayPosition = easyPlayChess(boardModel, aiPlayChess);
       }
-      else if (aiType === MEDIUM_AI) {
+      else if (opponentType === MEDIUM_AI) {
         aiPlayPosition = minMaxPlayChess(boardModel, aiPlayChess, 1);
       }
-      else if (aiType === HARD_AI) {
-        aiPlayPosition = minMaxPlayChess(boardModel, aiPlayChess, 1);
+      else if (opponentType === HARD_AI) {
+        aiPlayPosition = minMaxPlayChess(boardModel, aiPlayChess, 3);
       }
 
       setBoardModel(prev => {
@@ -155,11 +155,12 @@ const GomokuPage = () => {
       </div>
       <div className="mt-2">
         <Select
-          defaultValue={selectedAiType}
+          defaultValue={selectedOpponentType}
           style={{ width: 150 }}
           className="mr-2"
-          onChange={(value) => setSelectedAiType(value)}
+          onChange={(value) => setSelectedOpponentType(value)}
         >
+          <Option value={PEOPLE}>{PEOPLE}</Option>
           <Option value={RANDOM_AI}>{RANDOM_AI}</Option>
           <Option value={EASY_AI}>{EASY_AI}</Option>
           <Option value={MEDIUM_AI}>{MEDIUM_AI}</Option>
@@ -168,9 +169,9 @@ const GomokuPage = () => {
 
         <Button
           type="primary"
-          onClick={() => { setAiType(selectedAiType) }}
+          onClick={() => { setOpponentType(selectedOpponentType) }}
         >
-          更換AI
+          更換對手
         </Button>
       </div>
 

@@ -13,15 +13,17 @@ import GomokuPage from 'pages/gomoku/GomokuPage';
 const { Header, Sider, Content } = Layout;
 
 
-function Angular() {
-  window.open('https://yuelung-ng-demo.herokuapp.com/', '_blank');
-  return null;
-}
-
 function getItem(key, name, link, icon, children) {
+  let label = <span>{name}</span>;
+  if (link === 'angular') {
+    label = <a target="_blank" rel="noreferrer" href="https://yuelung-ng-demo.herokuapp.com/">{name}</a>
+  } else if (link) {
+    label = <Link to={link}>{name}</Link>;
+  }
+
   return {
     key,
-    label: link ? (<Link to={link}>{name}</Link>) : name,
+    label,
     icon: key.split('-').length > 2 ? null : <AppstoreOutlined />,
     children: children ? children.map((child, index) => {
       return getItem(child.key, child.name, child.link, child.icon, child.children);
@@ -143,7 +145,6 @@ const App = () => {
                 <Route path="shopping/manage" element={<ManagePage />} />
                 <Route path="shopping/cart" element={<CartPage />} />
                 <Route path="ai/gomoku" element={<GomokuPage />} />
-                <Route path="angular" element={<Angular />} />
                 <Route path="*" element={
                   <div>
                     <h2>404 Page not found</h2>

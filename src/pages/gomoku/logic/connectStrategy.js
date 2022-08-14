@@ -22,22 +22,22 @@ export function checkIsTie(boardInfo) {
 
 function isWinHorizontal(boardInfo, checkedChessInfo) {
   return getConnectCount(boardInfo, checkedChessInfo, 1, 0) +
-    getConnectCount(boardInfo, checkedChessInfo, -1, 0) - 1 === boardInfo.winCount;
+    getConnectCount(boardInfo, checkedChessInfo, -1, 0) - 1 >= boardInfo.winCount;
 }
 
 function isWinVertical(boardInfo, checkedChessInfo) {
   return getConnectCount(boardInfo, checkedChessInfo, 0, 1) +
-    getConnectCount(boardInfo, checkedChessInfo, 0, -1) - 1 === boardInfo.winCount;
+    getConnectCount(boardInfo, checkedChessInfo, 0, -1) - 1 >= boardInfo.winCount;
 }
 
 function isWinRightOblique(boardInfo, checkedChessInfo) {
   return getConnectCount(boardInfo, checkedChessInfo, -1, 1) +
-    getConnectCount(boardInfo, checkedChessInfo, 1, -1) - 1 === boardInfo.winCount;
+    getConnectCount(boardInfo, checkedChessInfo, 1, -1) - 1 >= boardInfo.winCount;
 }
 
 function isWinLeftOblique(boardInfo, checkedChessInfo) {
   return getConnectCount(boardInfo, checkedChessInfo, 1, 1) +
-    getConnectCount(boardInfo, checkedChessInfo, -1, -1) - 1 === boardInfo.winCount;
+    getConnectCount(boardInfo, checkedChessInfo, -1, -1) - 1 >= boardInfo.winCount;
 }
 
 function getConnectCount(boardInfo, checkedChessInfo, volumeX, volumeY) {

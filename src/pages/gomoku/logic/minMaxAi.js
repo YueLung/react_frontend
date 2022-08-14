@@ -4,6 +4,10 @@ import { getScore as getBoardScore } from './boardEvaluation.js';
 import { checkIsWin, checkIsTie } from './connectStrategy.js';
 import { getOppositeChessType } from './util.js';
 
+// 自行設定最大數，最小數
+// 不可使用 JS 提供的 Number.NEGATIVE_INFINITY、Number.MIN_VALUE 會錯誤
+const MIN_VALUE = -9999999;
+const MAX_VALUE = 9999999;
 
 export function minMaxPlayChess(board, aiPlayChess, minMaxSearchDepth) {
   let bestPosInfo = minMaxSearch(board, aiPlayChess, true, 0, Number.MIN_VALUE, Number.MAX_VALUE, minMaxSearchDepth, aiPlayChess);
@@ -13,7 +17,7 @@ export function minMaxPlayChess(board, aiPlayChess, minMaxSearchDepth) {
 
 function minMaxSearch(board, chessType, isMaxLayer, depth, alpha, beta, minMaxSearchDepth, aiPlayChess) {
   // console.log(`depth=${depth} isMaxLayer=${isMaxLayer}`);
-  let bestScore = isMaxLayer ? Number.NEGATIVE_INFINITY : Number.MAX_VALUE;
+  let bestScore = isMaxLayer ? MIN_VALUE : MAX_VALUE;
   let bestPosInfo = { x: -1, y: -1, score: bestScore };
 
   const orderPosScoreList = getPossibleBestPosOrderList(board, chessType);
@@ -43,7 +47,7 @@ function minMaxSearch(board, chessType, isMaxLayer, depth, alpha, beta, minMaxSe
 
     if (isWin) {
       console.log('win happen');
-      let Info = { x, y, score: isMaxLayer ? Number.MAX_VALUE - 1 : Number.NEGATIVE_INFINITY + 1 };
+      let Info = { x, y, score: isMaxLayer ? MAX_VALUE - 1 : MIN_VALUE + 1 };
       return Info;
     }
 
@@ -83,11 +87,12 @@ function minMaxSearch(board, chessType, isMaxLayer, depth, alpha, beta, minMaxSe
     }
 
     if (depth === 0) {
-      // console.log(`y: ${y}  x: ${x} score: ${tmpScore} depth: ${depth} `);
+      console.log(`y: ${y}  x: ${x} score: ${tmpScore}  bestScore:${bestPosInfo.score} depth: ${depth} `);
       //bestModel.PrintBoard();
     }
   }
 
+  console.log('bestPosInfo', bestPosInfo);
   return bestPosInfo;
 }
 
