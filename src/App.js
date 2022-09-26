@@ -3,6 +3,7 @@ import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
 import 'antd/dist/antd.css';
 import { MenuFoldOutlined, MenuUnfoldOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
+import { GithubOutlined } from '@ant-design/icons';
 import './App.css';
 import menu from './assets/menu.json';
 import HomePage from './pages/home/HomePage';
@@ -44,8 +45,8 @@ const App = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // 若為空字串 則設為home
-    const currentLink = location.pathname.substring(1) || 'home';
+    // 若為空字串 則設為ai/gomoku
+    const currentLink = location.pathname.substring(1) || 'ai/gomoku';
 
     menu.forEach(m => {
       if (m.link && m.link.includes(currentLink)) {
@@ -114,7 +115,7 @@ const App = () => {
           />
         </Sider>
         <Layout className="site-layout" style={contentStyle}>
-          <Header className="site-layout-background"
+          <Header className="site-layout-background flex"
             style={{
               padding: 0,
               // position: 'fixed',
@@ -127,6 +128,18 @@ const App = () => {
               className: 'trigger',
               onClick: () => onCollapse(!collapsed),
             })}
+
+            <div style={{ marginLeft: 'auto' }}>
+              <a href='https://github.com/YueLung/react_frontend' target="_blank" rel="noreferrer noopenner" style={{ color: 'inherit' }} className='mr-2'>
+                <GithubOutlined style={{ fontSize: '24px' }} />
+                <span className="ml-1" style={{ fontSize: '16px' }}>React</span>
+              </a>
+              <a href='https://github.com/YueLung/django_backend' target="_blank" rel="noreferrer noopenner" style={{ color: 'inherit' }} className='mr-3'>
+                <GithubOutlined style={{ fontSize: '24px' }} />
+                <span className="ml-1" style={{ fontSize: '16px' }}>Django</span>
+              </a>
+            </div>
+
           </Header>
           <Content
             className="site-layout-background"
@@ -139,7 +152,7 @@ const App = () => {
           >
             <div>
               <Routes>
-                <Route path="/" element={<Navigate to="/home" />} />
+                <Route path="/" element={<Navigate to="/ai/gomoku" />} />
                 <Route path="home" element={<HomePage />} />
                 <Route path="apiTest" element={<ApiTestPage />} />
                 <Route path="shopping/manage" element={<ManagePage />} />

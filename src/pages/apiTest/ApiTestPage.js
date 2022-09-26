@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const ApiTestPage = () => {
 	console.log('enter ApiTestPage')
-	const [recvData, setRepo] = useState();
+	const [recvData, setData] = useState(undefined);
 
 	fetch(`${process.env.REACT_APP_END_POINT}/trial/api_test`, {
 		method: "GET",
@@ -14,14 +14,15 @@ const ApiTestPage = () => {
 		.then(res => res.json())
 		.then(data => {
 			// console.log(data)
-			setRepo(data['data']);
+			setData(data['data']);
 		})
 		.catch(e => {
 			console.log(e);
+			setData('Error!!! Not connect with backend');
 		})
 
 	return (
-		<div>ApiTest {(recvData === undefined) ? "目前還有沒有資料..." : recvData}</div>
+		<div>{(recvData === undefined) ? "目前還有沒有資料..." : recvData}</div>
 	);
 }
 

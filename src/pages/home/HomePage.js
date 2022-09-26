@@ -4,7 +4,8 @@ const { Title } = Typography;
 
 const HomePage = () => {
 	return (<>
-		<Title level={3} >Source Code</Title>
+		HOME
+		{/* <Title level={3} >Source Code</Title>
 		<div>
 			<a href='https://github.com/YueLung/react_frontend' target="_blank" rel="noreferrer noopenner" style={{ color: 'inherit' }}>
 				<GithubOutlined style={{ fontSize: '24px' }} />
@@ -17,7 +18,7 @@ const HomePage = () => {
 				<GithubOutlined style={{ fontSize: '24px' }} />
 				<span className="ml-1" style={{ fontSize: '16px' }}>Django</span>
 			</a>
-		</div>
+		</div> */}
 	</>)
 }
 
