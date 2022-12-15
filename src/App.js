@@ -17,7 +17,7 @@ const { Header, Sider, Content } = Layout;
 function getItem(key, name, link, icon, children) {
   let label = <span>{name}</span>;
   if (link === 'angular') {
-    label = <a target="_blank" rel="noreferrer" href="https://fontend-angular-8tdkozwyt-yuelung.vercel.app/">{name}</a>
+    label = <a target="_blank" rel="noreferrer" href="https://fontend-angular.vercel.app/">{name}</a>
   } else if (link) {
     label = <Link to={link}>{name}</Link>;
   }
